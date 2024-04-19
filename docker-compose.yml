@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+  net-test:
+    external: true
+
+services:
+  api:
+    build:
+      context: ./api
+    env_file: config.env
+    ports:
+      - 5000:80
+    volumes:
+      - ./api:/app
+    restart: unless-stopped
+    networks:
+      - net-test
+      
+
+  db:
+    image: postgis/postgis:latest 
+    restart: always
+    expose:
+      - 5432
+    environment:
+      POSTGRES_DB: restaurants  
+      POSTGRES_USER: root       
+      POSTGRES_PASSWORD: T3mp0r4l 
+    ports:
+      - "5432:5432"  
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data  
+    networks:
+      - net-test

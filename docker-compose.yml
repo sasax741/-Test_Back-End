@@ -19,7 +19,7 @@ services:
       
 
   db:
-    image: postgis/postgis:latest 
+    image: postgis/postgis:10-2.5-alpine
     restart: always
     expose:
       - 5432
